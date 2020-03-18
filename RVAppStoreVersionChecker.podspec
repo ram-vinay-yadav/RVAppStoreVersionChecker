@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'RVAppStoreVersionChecker'
-  s.version          = '1.1'
+  s.version          = '1.0'
   s.summary          = 'To update new version of App'
  
   s.description      = <<-DESC
