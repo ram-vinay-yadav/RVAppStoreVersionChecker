@@ -65,7 +65,19 @@ open class RVAppStoreVersionChecker: UIView {
         
         DispatchQueue.main.async {
             
-            UIApplication.shared.keyWindow?.addSubview(self.parentView)
+            if #available(iOS 13.0, *) {
+                let keyWindow = UIApplication.shared.connectedScenes
+                    .filter({$0.activationState == .foregroundActive})
+                    .map({$0 as? UIWindowScene})
+                    .compactMap({$0})
+                    .first?.windows
+                    .filter({$0.isKeyWindow}).first
+                
+                keyWindow?.addSubview(self.parentView)
+            } else {
+                // Fallback on earlier versions
+                UIApplication.shared.keyWindow?.addSubview(self.parentView)
+            }
             
             self.popupContainerView.layer.cornerRadius = 10
             self.popupContainerView.clipsToBounds = true
